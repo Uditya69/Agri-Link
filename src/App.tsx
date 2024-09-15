@@ -1,11 +1,21 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Auth from "../components/auth/Auth";
+import Home from "../components/home/index";
+import ProtectedRoute from "../components/auth/ProtectedRoute.tsx";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className=" flex flex-col items-center justify-between m-auto ">
-      <h1 className=" font-bold">Agri-Link</h1>
-      <p>we aim to revolutionise sales for farmers!</p>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/auth" element={<Auth />} />
+        <Route
+          path="/home"
+          element={<ProtectedRoute><Home /></ProtectedRoute>}
+        />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
