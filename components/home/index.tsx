@@ -1,10 +1,11 @@
 import React from "react";
 import { auth } from "../../src/utils/firebase";
+import { toast } from "react-toastify";
 
 const Home: React.FC = () => {
   const handleLogout = () => {
     auth.signOut();
-    alert("You have logged out!");
+    toast.success("You have logged out!");
   };
 
   return (
