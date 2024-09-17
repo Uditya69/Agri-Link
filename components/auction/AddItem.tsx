@@ -31,6 +31,7 @@ const AuctionForm: React.FC = () => {
   const [pricePerUnit, setPricePerUnit] = useState<number>(0);
   const [auctionEndDate, setAuctionEndDate] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null); // New state for image preview
   const [loading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<any>({});
   const [userData, setUserData] = useState<any>(null);
@@ -71,6 +72,17 @@ const AuctionForm: React.FC = () => {
 
     return () => unsubscribe();
   }, []);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImage(file);
+      setImagePreview(URL.createObjectURL(file)); // Set image preview
+    } else {
+      setImage(null);
+      setImagePreview(null);
+    }
+  };
 
   const handleAuctionSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,6 +137,7 @@ const AuctionForm: React.FC = () => {
       setPricePerUnit(0);
       setAuctionEndDate("");
       setImage(null);
+      setImagePreview(null); // Clear preview
       setLoading(false);
       toast.success("Auction created successfully!");
       navigate("/auctions");
@@ -143,94 +156,103 @@ const AuctionForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleAuctionSubmit} className="space-y-4 p-4">
-      <div>
-        <label className="block text-gray-700">Item Name:</label>
-        <input
-          type="text"
-          placeholder="Item Name"
-          value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
-          className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-        />
-        {errors.itemName && <p className="text-red-500">{errors.itemName}</p>}
-      </div>
-  
-      <div>
-        <label className="block text-gray-700">Quantity:</label>
-        <input
-          type="number"
-          placeholder="Quantity"
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-          className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-        />
-        {errors.quantity && <p className="text-red-500">{errors.quantity}</p>}
-      </div>
-  
-      <div>
-        <label className="block text-gray-700">Unit:</label>
-        <select
-          value={unit}
-          onChange={(e) => setUnit(e.target.value)}
-          className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+    <div className="flex justify-center items-center p-10">
+      <form onSubmit={handleAuctionSubmit} className="space-y-4 p-4">
+        <div>
+          <label className="block text-gray-700">Item Name:</label>
+          <input
+            type="text"
+            placeholder="Item Name"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          />
+          {errors.itemName && <p className="text-red-500">{errors.itemName}</p>}
+        </div>
+
+        <div>
+          <label className="block text-gray-700">Quantity:</label>
+          <input
+            type="number"
+            placeholder="Quantity"
+            value={quantity}
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          />
+          {errors.quantity && <p className="text-red-500">{errors.quantity}</p>}
+        </div>
+
+        <div>
+          <label className="block text-gray-700">Unit:</label>
+          <select
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+            className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          >
+            <option value="kg">Kilogram (kg)</option>
+            <option value="ton">Ton</option>
+            <option value="quintal">Quintal</option>
+          </select>
+          {errors.unit && <p className="text-red-500">{errors.unit}</p>}
+        </div>
+
+        <div>
+          <label className="block text-gray-700">Price per Unit:</label>
+          <input
+            type="number"
+            placeholder="Price per Unit"
+            value={pricePerUnit}
+            onChange={(e) => setPricePerUnit(Number(e.target.value))}
+            className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          />
+          {errors.pricePerUnit && (
+            <p className="text-red-500">{errors.pricePerUnit}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-gray-700">Auction End Date:</label>
+          <input
+            type="date"
+            value={auctionEndDate}
+            onChange={(e) => setAuctionEndDate(e.target.value)}
+            className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          />
+          {errors.auctionEndDate && (
+            <p className="text-red-500">{errors.auctionEndDate}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-gray-700">Image:</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+          />
+          {imagePreview && (
+            <div className="mt-4">
+              <img
+                src={imagePreview}
+                alt="Image Preview"
+                className="w-full max-h-40 object-cover"
+              />
+            </div>
+          )}
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className={`w-full p-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 ${
+            loading && "opacity-50 cursor-not-allowed"
+          }`}
         >
-          <option value="kg">Kilogram (kg)</option>
-          <option value="ton">Ton</option>
-          <option value="quintal">Quintal</option>
-        </select>
-        {errors.unit && <p className="text-red-500">{errors.unit}</p>}
-      </div>
-  
-      <div>
-        <label className="block text-gray-700">Price per Unit:</label>
-        <input
-          type="number"
-          placeholder="Price per Unit"
-          value={pricePerUnit}
-          onChange={(e) => setPricePerUnit(Number(e.target.value))}
-          className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-        />
-        {errors.pricePerUnit && (
-          <p className="text-red-500">{errors.pricePerUnit}</p>
-        )}
-      </div>
-  
-      <div>
-        <label className="block text-gray-700">Auction End Date:</label>
-        <input
-          type="date"
-          value={auctionEndDate}
-          onChange={(e) => setAuctionEndDate(e.target.value)}
-          className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-        />
-        {errors.auctionEndDate && (
-          <p className="text-red-500">{errors.auctionEndDate}</p>
-        )}
-      </div>
-  
-      <div>
-        <label className="block text-gray-700">Image:</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) =>
-            setImage(e.target.files ? e.target.files[0] : null)
-          }
-          className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-        />
-      </div>
-  
-      <button
-        type="submit"
-        disabled={loading}
-        className={`w-full p-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 ${
-          loading && "opacity-50 cursor-not-allowed"
-        }`}
-      >
-        {loading ? "Creating Auction..." : "Create Auction"}
-      </button>
-    </form>
+          {loading ? "Creating Auction..." : "Create Auction"}
+        </button>
+      </form>
+    </div>
   );
 };
 
