@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { auth, db, storage } from "../../src/configs/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import usePasswordToggle from "../../src/hooks/usePasswordToggle";
 import visibleicon from "../../src/assets/auth/visible.svg";
@@ -58,10 +58,7 @@ const Signup: React.FC = () => {
     fetchLocationData();
   }, [pin]);
 
-  const checkIfEmailExists = async () => {
-    const userDoc = await getDoc(doc(db, "users", email));
-    return userDoc.exists();
-  };
+ 
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();

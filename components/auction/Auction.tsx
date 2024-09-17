@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../src/configs/firebase";
-import Card from "./Card"; // Import your existing Card component
+import Card from "./Card"; 
 
 interface Auction {
   id: string;
@@ -22,10 +21,8 @@ interface Auction {
 const AuctionPage: React.FC = () => {
   const [auctions, setAuctions] = useState<Auction[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchLocation, setSearchLocation] = useState(""); // State for search input
-  const navigate = useNavigate();
+  const [searchLocation, setSearchLocation] = useState(""); 
 
-  // Fetch auction data from Firestore
   useEffect(() => {
     const fetchAuctions = async () => {
       try {
@@ -54,7 +51,6 @@ const AuctionPage: React.FC = () => {
     fetchAuctions();
   }, []);
 
-  // Filter auctions based on the search input
   const filteredAuctions = auctions.filter((auction) =>
     auction.location.toLowerCase().includes(searchLocation.toLowerCase())
   );
@@ -65,7 +61,6 @@ const AuctionPage: React.FC = () => {
 
   return (
     <div>
-      {/* Search Box */}
       <div className="relative m-6">
         <input
           type="text"
@@ -74,7 +69,6 @@ const AuctionPage: React.FC = () => {
           onChange={(e) => setSearchLocation(e.target.value)}
           className="p-3 pl-10 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-green-500 focus:outline-none"
         />
-        {/* Search Icon (SVG) */}
         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
           <svg
             className="w-5 h-5 text-gray-500"
