@@ -71,7 +71,7 @@ const AuctionPage: React.FC = () => {
               })
             }
           >
-            <Card auction={auction} />
+            <Card auction={auction}  searchLocation=""/>
           </div>
         ))
       ) : (

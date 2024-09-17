@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { storage, db, auth } from "../../src/configs/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
-import { v4 as uuidv4 } from "uuid";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { z } from "zod";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +20,10 @@ const auctionSchema = z.object({
   image: z.any().optional(),
 });
 
+const generateShortAuctionId = () => {
+  return Math.random().toString(36).substring(2, 8).toUpperCase();
+};
+
 const AuctionForm: React.FC = () => {
   const [itemName, setItemName] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
@@ -37,10 +40,30 @@ const AuctionForm: React.FC = () => {
   const auctionStartDate: string = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const { displayName, email } = user;
-        setUserData({ displayName, email, location: "Default location" });
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            setUserData({
+              displayName: userData?.name || "Default Name",
+              email: user.email || "Default Email",
+              location: userData?.location[3] || "Default location",
+            });
+          } else {
+            setUserData({
+              displayName: "Default Name",
+              email: "Default Email",
+              location: "Default location",
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching user data: ", error);
+          setUserData(null);
+        }
       } else {
         setUserData(null);
       }
@@ -73,7 +96,7 @@ const AuctionForm: React.FC = () => {
       setErrors({});
       setLoading(true);
 
-      const auctionId = uuidv4();
+      const auctionId = generateShortAuctionId();  // Use shorter auction ID
       let imageUrl = "";
 
       if (image) {
@@ -209,7 +232,6 @@ const AuctionForm: React.FC = () => {
       </button>
     </form>
   );
-  
 };
 
 export default AuctionForm;
