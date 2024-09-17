@@ -4,7 +4,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { auth } from "../../configs/firebase";
 import { toast } from "react-toastify";
-
+import Loader from "../../../components/shared/loader";
 interface UserData {
   dob: string;
   email: string;
@@ -45,7 +45,7 @@ function Profile() {
   }, [db, navigate]);
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   const handleLogout = () => {

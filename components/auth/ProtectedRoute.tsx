@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../src/configs/firebase";
-
+import Loader from "../shared/loader";
 interface ProtectedRouteProps {
   children: ReactElement;
 }
@@ -21,7 +21,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   if (!user) {

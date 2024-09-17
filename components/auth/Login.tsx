@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/aut
 import usePasswordToggle from "../../src/hooks/usePasswordToggle";
 import visibleicon from "../../src/assets/auth/visible.svg";
 import hiddenicon from "../../src/assets/auth/hidden.svg";
+import logo from "../../src/assets/shared/logo.svg"
 import { toast } from 'react-toastify';
 
 const Login: React.FC = () => {
@@ -53,7 +54,7 @@ const Login: React.FC = () => {
     {/* Centered Logo Section */}
     <div className="flex flex-col items-center justify-center mb-8">
       <img
-        src="../../assets/Logo/logo.svg"
+        src={logo}
         alt="Logo"
         className="w-32"
       />
