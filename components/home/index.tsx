@@ -1,5 +1,5 @@
 import React from "react";
-import { auth } from "../../src/utils/firebase";
+import { auth } from "../../src/configs/firebase";
 import { toast } from "react-toastify";
 
 const Home: React.FC = () => {
