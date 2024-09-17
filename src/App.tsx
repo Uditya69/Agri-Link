@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Auth from "../components/auth/Auth";
 import ProtectedRoute from "../components/auth/ProtectedRoute.tsx";
 import AddItem from "../components/auction/AddItem";
-import Auction from "../components/auction/Auction";
+import Auction from "./pages/AuctionScreen";
+
 import "./index.css";
 import ContactUs from '../components/ContactUs';
 import Home from "../components/Home";
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           path="/home"
           element={<ProtectedRoute><Home /></ProtectedRoute>}
         />
+        
         <Route path="/add" element={<AddItem/>} />
         <Route path="/auctions"element={<Auction/>} />
         <Route path="/contactUs" element={<ContactUs />} />
