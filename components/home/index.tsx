@@ -1,7 +1,6 @@
 import React from "react";
 import { auth } from "../../src/configs/firebase";
 import { toast } from "react-toastify";
-import Card from "../auction/Card";
 
 const Home: React.FC = () => {
   const handleLogout = () => {
