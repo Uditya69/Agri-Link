@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../src/configs/firebase";
 import Card from "./Card";
-
+import Loader from "../shared/loader";
 interface Auction {
   id: string;
   auctionEndDate: string;
@@ -65,7 +65,7 @@ const AuctionPage: React.FC = () => {
   });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   return (
