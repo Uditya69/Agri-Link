@@ -5,6 +5,7 @@ import Home from "../components/home/index";
 import ProtectedRoute from "../components/auth/ProtectedRoute.tsx";
 import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction";
+import Bid from "./bid.tsx";
 const App: React.FC = () => { 
   return (
     <Router>
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         />
         <Route path="/add" element={<AddItem/>} />
         <Route path="/auctions"element={<Auction/>} />
+        <Route path = "/bid" element= {<Bid/>} />
       </Routes>
     </Router>
   );
