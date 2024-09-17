@@ -4,8 +4,9 @@ import Auth from "../components/auth/Auth";
 import ProtectedRoute from "../components/auth/ProtectedRoute.tsx";
 import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction.tsx";
+import Header from '../components/Header';
+import Weather from '../components/Weather';
 import Header from "../components/Header";
-// import Auction from "./pages/AuctionScreen";
 
 import "./index.css";
 import ContactUs from "../components/ContactUs";
@@ -28,6 +29,9 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/weather" element={<Weather/>} />
+        <Route path="/bid" element={<Bid/>} />
+        <Route path="/auctions"element={<Auction/>} />
 
         <Route
           path="/additems"
@@ -37,8 +41,6 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/bid" element={<Bid />} />
-        <Route path="/auctions" element={<Auction />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>

@@ -99,7 +99,8 @@ const AuctionPage: React.FC = () => {
   };
 
   if (loading) {
-    return <Loader />;
+    return <Loader/>;
+
   }
 
   return (
