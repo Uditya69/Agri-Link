@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import React, { useEffect, useState, useCallback } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, auth } from "../../src/configs/firebase";
 import { toast, ToastContainer } from "react-toastify";
@@ -20,7 +20,11 @@ const Bid: React.FC = () => {
   const [currentBid, setCurrentBid] = useState<number>(auction.pricePerUnit);
   const [topBids, setTopBids] = useState<TopBid[]>(auction.topBids || []);
   const [currentUser, setCurrentUser] = useState<{ userId: string; role: string; userName?: string } | null>(null);
+  const [sellerId, setSellerId] = useState<string | undefined>(auction?.sellerId);
+  
+  const navigate = useNavigate();
 
+  console.log(auction)
   if (!auction) {
     return <div>No auction data available.</div>;
   }
@@ -47,25 +51,32 @@ const Bid: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  // Fetch the user's name for each top bid
-  const fetchUserName = async (userId: string) => {
+  // Fetch the user's name for each top bid (memoize this function to avoid unnecessary re-renders)
+  const fetchUserName = useCallback(async (userId: string) => {
     const userRef = doc(db, "users", userId);
     const userDoc = await getDoc(userRef);
     return userDoc.exists() ? userDoc.data().name : "Unknown User";
-  };
+  }, []);
 
+  // Only fetch names when the topBids change
   useEffect(() => {
     const fetchTopBidNames = async () => {
       const updatedBids = await Promise.all(
         topBids.map(async (bid) => {
-          const userName = await fetchUserName(bid.userId);
-          return { ...bid, userName };
+          if (!bid.userName) {
+            const userName = await fetchUserName(bid.userId);
+            return { ...bid, userName };
+          }
+          return bid;
         })
       );
       setTopBids(updatedBids);
     };
-    fetchTopBidNames();
-  }, [topBids]);
+
+    if (topBids.length > 0) {
+      fetchTopBidNames();
+    }
+  }, [topBids, fetchUserName]);
 
   const handleBidChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -95,11 +106,53 @@ const Bid: React.FC = () => {
     }
   };
 
+  const handleChatWithSeller = async () => {
+    if (!currentUser) {
+      toast.error("You need to be logged in to chat with the seller.");
+      return;
+    }
+
+    if (!sellerId) {
+      toast.error("Seller information is missing.");
+      console.error("Error: sellerId is undefined.");
+      return;
+    }
+
+    const combinedId = sellerId + currentUser.userId; // Unique chat ID combining buyer and seller UID
+    const userChatRef = doc(db, "userChats", combinedId);
+    const chatRef = doc(db, "chats", combinedId);
+
+    try {
+      const chatDoc = await getDoc(userChatRef);
+
+      if (!chatDoc.exists()) {
+        // Create a new chat if it doesn't exist
+        await setDoc(userChatRef, {
+          userId: currentUser.userId,
+          sellerId: sellerId, // Ensure sellerId is defined
+          combinedId: combinedId,
+        });
+
+        // Initialize the chat messages collection for this conversation
+        await setDoc(chatRef, {
+          messages: [],
+        });
+
+        toast.success("Chat started successfully.");
+      }
+
+      // Redirect to chat screen with chatId
+      navigate(`/chat/${combinedId}`);
+    } catch (error) {
+      toast.error("Error initiating chat.");
+      console.error("Error creating or fetching chat:", error);
+    }
+  };
+
   const endDate = auction.auctionEndDate;
 
   return (
-    <div className=" max-w-4xl mx-auto pb-[10%]">
-      <ToastContainer />
+    <div className="max-w-4xl mx-auto pb-[10%]">
       <div className="p-4">
         <img src={auction.imageUrl} alt={auction.itemName} className="w-full h-auto object-cover rounded-lg shadow-lg" />
       </div>
@@ -130,32 +183,36 @@ const Bid: React.FC = () => {
             >
               Place Bid
             </button>
+            <button
+              onClick={handleChatWithSeller}
+              className="bg-blue-500 text-white p-3 rounded-md font-bold w-full sm:w-auto"
+            >
+              Chat with Seller
+            </button>
           </div>
         )}
 
-        {currentUser?.role !== "buyer" && (
-          <div className="mt-8">
-            <h3 className="text-lg font-bold mb-4">Top 5 Bids:</h3>
-            <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-              <thead>
-                <tr>
-                  <th className="px-4 py-2 bg-gray-200">Rank</th>
-                  <th className="px-4 py-2 bg-gray-200">Bid Amount</th>
-                  <th className="px-4 py-2 bg-gray-200">User Name</th>
+        <div className="mt-8">
+          <h3 className="text-lg font-bold mb-4">Top 5 Bids:</h3>
+          <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+            <thead>
+              <tr>
+                <th className="px-4 py-2 bg-gray-200">Rank</th>
+                <th className="px-4 py-2 bg-gray-200">Bid Amount</th>
+                <th className="px-4 py-2 bg-gray-200">User Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {topBids.map((bid, index) => (
+                <tr key={index} className="text-center border-t">
+                  <td className="px-4 py-2">{index + 1}</td>
+                  <td className="px-4 py-2">₹{bid.bidAmount.toFixed(2)}</td>
+                  <td className="px-4 py-2">{bid.userName || "Loading..."}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {topBids.map((bid, index) => (
-                  <tr key={index}>
-                    <td className="border px-4 py-2 text-center">{index + 1}</td>
-                    <td className="border px-4 py-2 text-center">₹{bid.bidAmount.toFixed(2)}</td>
-                    <td className="border px-4 py-2 text-center">{bid.userName || bid.userId}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
