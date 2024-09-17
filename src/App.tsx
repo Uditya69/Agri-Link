@@ -6,31 +6,48 @@ import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction.tsx";
 import Header from '../components/Header';
 import Weather from '../components/Weather';
+<<<<<<< HEAD
+=======
+import Header from "../components/Header";
+
+>>>>>>> b4fc44252b9901d3f325c64dce5ce42d2ef9a3f5
 import "./index.css";
-import ContactUs from '../components/ContactUs';
+import ContactUs from "../components/ContactUs";
 import Home from "../components/Home";
-import Profile from './pages/Profile'
-import BottomNav from '../components/BottomNav';
+import Profile from "./pages/Profile";
+import BottomNav from "../components/BottomNav";
 import Bid from "../components/auction/bid.tsx";
 
-const App: React.FC = () => { 
+const App: React.FC = () => {
   return (
     <Router>
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/auth" element={<Auth />} />
         <Route
           path="/"
-          element={<ProtectedRoute><Home /></ProtectedRoute>}
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
         />
         <Route path="/weather" element={<Weather/>} />
-        <Route path="/add" element={<AddItem/>} />
         <Route path="/bid" element={<Bid/>} />
         <Route path="/auctions"element={<Auction/>} />
+
+        <Route
+          path="/additems"
+          element={
+            <ProtectedRoute>
+              <AddItem />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
-      <BottomNav/>
+      <BottomNav />
     </Router>
   );
 };
