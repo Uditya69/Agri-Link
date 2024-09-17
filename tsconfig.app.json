@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "declaration.d.ts"]
+  "include": ["src", "declaration.d.ts", "components/auction/bid.tsx"]
 }

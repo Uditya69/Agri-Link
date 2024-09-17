@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
-import { Carousel } from 'tailwind-carousel';
+
 const Home: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [clickedItem, setClickedItem] = useState<string | null>(null);
@@ -73,12 +73,7 @@ const Home: React.FC = () => {
         </div>
       )}
     </div>
-    <Carousel>
-      <img src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp" alt="Image 1" />
-      <img src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp" alt="Image 2" />
-      <img src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp" alt="Image 1" />
-      {/* Add more items as needed */}
-    </Carousel>
+    
     </>
   );
 };

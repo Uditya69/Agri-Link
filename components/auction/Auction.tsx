@@ -3,10 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../src/configs/firebase";
 import Card from "./Card"; // Import your existing Card component
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import '../../src/css/auction.css';
 
 interface Auction {
   id: string;
@@ -69,12 +65,8 @@ const AuctionPage: React.FC = () => {
 
   return (
     <div>
-      <Link to="/home" className="back-link">
-        <FontAwesomeIcon icon={faArrowLeft} size="lg" />
-        <span>Auction Page</span>
-      </Link>
       {/* Search Box */}
-      <div className="relative my-14">
+      <div className="relative m-6">
         <input
           type="text"
           placeholder="Search by location"

@@ -9,3 +9,20 @@
 ::-webkit-scrollbar {
   width: 0px;
 }
+
+@media (max-width: 768px) {
+  .header {
+    display: none; 
+  }
+
+  .bottom-nav {
+    display: block; 
+  }
+}
+
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none; 
+  }
+}
+
