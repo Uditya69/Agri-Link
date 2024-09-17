@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../src/configs/firebase";
 import Card from "./Card";
-
+import Loader from "../shared/loader";
 interface Auction {
   id: string;
   auctionEndDate: string;
@@ -21,15 +21,7 @@ interface Auction {
 const AuctionPage: React.FC = () => {
   const [auctions, setAuctions] = useState<Auction[]>([]);
   const [loading, setLoading] = useState(true);
-<<<<<<< HEAD
-<<<<<<< HEAD
-  const [searchLocation, setSearchLocation] = useState(""); // State for search input
-=======
-  const [searchLocation, setSearchLocation] = useState(""); 
->>>>>>> cd3c4df8f6f32814e7aaaf972160e14b30aeddd7
-=======
   const [searchTerm, setSearchTerm] = useState(""); 
->>>>>>> fe34ca1d7bc264ef7f62400f503094ea5b2986da
 
   useEffect(() => {
     const fetchAuctions = async () => {
@@ -73,7 +65,7 @@ const AuctionPage: React.FC = () => {
   });
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   return (

@@ -20,6 +20,7 @@
     "react-dom": "^18.3.1",
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.26.2",
+    "react-swipeable": "^7.0.1",
     "react-toastify": "^10.0.5",
     "tailwind-carousel": "^1.0.22",
     "uuid": "^10.0.0",

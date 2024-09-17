@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '.././src/css/carousel.css'; // Import the custom CSS
+import { useSwipeable } from 'react-swipeable';
+import '../src/css/carousel.css'; // Import the custom CSS
 
 interface Slide {
   id: number;
@@ -9,22 +10,20 @@ interface Slide {
 
 const Carousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Define your slides with custom components
+  const [isHovered, setIsHovered] = useState(false); // To control auto-slide when user hovers
   const navigate = useNavigate();
 
-const handleClick = () => {
-navigate('/weather');
-};
+  // Define your slides with custom components
   const slides: Slide[] = [
     {
       id: 1,
       content: (
         <div className="carousel-slide-content">
+        
           <h3>To see the weather updates now</h3>
-      <button className="btn" onClick={handleClick}>
-        Click Here
-      </button>
+          <button className="btn" onClick={() => navigate('/weather')}>
+            Click Here
+          </button>
         </div>
       ),
     },
@@ -32,7 +31,6 @@ navigate('/weather');
       id: 2,
       content: (
         <div className="carousel-slide-content">
-          <h2>Second Slide</h2>
           <p>This is the second slide with different custom content.</p>
         </div>
       ),
@@ -41,18 +39,21 @@ navigate('/weather');
       id: 3,
       content: (
         <div className="carousel-slide-content">
-          <h2>Third Slide</h2>
           <p>This is the third slide with more custom content.</p>
         </div>
       ),
     },
   ];
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-    );
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isHovered) {
+        handleNext();
+      }
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [isHovered, currentIndex]);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -60,17 +61,41 @@ navigate('/weather');
     );
   };
 
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleNext(),
+    onSwipedRight: () => handlePrev(),
+    trackMouse: true,
+  });
+
   return (
-    <div className="carousel-container">
-      <button className="carousel-button prev" onClick={handlePrev}>
-        &#10094;
-      </button>
+    <div
+      className="carousel-container"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      {...handlers}
+    >
       <div className="carousel-slides">
         {slides[currentIndex].content}
       </div>
-      <button className="carousel-button next" onClick={handleNext}>
-        &#10095;
-      </button>
+      <div className="carousel-dots">
+        {slides.map((_, index) => (
+          <span
+            key={index}
+            className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => goToSlide(index)}
+          ></span>
+        ))}
+      </div>
     </div>
   );
 };
