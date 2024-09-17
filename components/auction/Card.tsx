@@ -58,7 +58,7 @@ const Card: React.FC<AuctionCardProps> = ({ auction, searchLocation }) => {
         <div className="flex justify-between items-center mb-2">
           <h3 className="text-xl font-semibold text-gray-800">{auction.itemName}</h3>
           <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-md">
-            AID: {auction.auctionId}
+             #{auction.auctionId}
           </span>
         </div>
 

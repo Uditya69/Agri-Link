@@ -46,20 +46,23 @@ const AuctionForm: React.FC = () => {
         try {
           const userDocRef = doc(db, "users", user.uid);
           const userDoc = await getDoc(userDocRef);
-
+          
           if (userDoc.exists()) {
             const userData = userDoc.data();
             setUserData({
               displayName: userData?.name || "Default Name",
               email: user.email || "Default Email",
               location: userData?.location[3] || "Default location",
+              role: userData?.role || "buyer", // Assuming role is stored in the Firestore document
             });
+
+            // Check if the user is not a seller and redirect to home
+            if (userData?.role !== "seller") {
+              toast.error("You must be a seller to create an auction");
+              navigate("/home");
+            }
           } else {
-            setUserData({
-              displayName: "Default Name",
-              email: "Default Email",
-              location: "Default location",
-            });
+            setUserData(null);
           }
         } catch (error) {
           console.error("Error fetching user data: ", error);
@@ -67,11 +70,12 @@ const AuctionForm: React.FC = () => {
         }
       } else {
         setUserData(null);
+        navigate("/home");
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [navigate]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
