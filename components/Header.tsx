@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
-    <header className="lg:px-16 px-4 bg-white flex flex-wrap items-center py-4 shadow-md">
+    <header className="sticky top-0 lg:px-16 px-4 bg-white flex flex-wrap items-center py-4 shadow-md z-50">
       <div className="flex-1 flex justify-between items-center">
         <Link to="/" className="text-xl">Home</Link>
       </div>

@@ -4,8 +4,6 @@ import { Oval } from 'react-loader-spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faFrown } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import '../src/css/weather.css';
-
 // Define TypeScript types for the weather data
 interface WeatherData {
   name: string;
