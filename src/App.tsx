@@ -4,6 +4,7 @@ import Auth from "../components/auth/Auth";
 import ProtectedRoute from "../components/auth/ProtectedRoute.tsx";
 import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction.tsx";
+import Header from '../components/Header';
 // import Auction from "./pages/AuctionScreen";
 
 import "./index.css";
@@ -16,6 +17,7 @@ import Bid from "../components/auction/bid.tsx";
 const App: React.FC = () => { 
   return (
     <Router>
+      <Header/>
       <Routes>
         <Route path="/auth" element={<Auth />} />
         <Route
