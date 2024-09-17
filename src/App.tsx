@@ -9,7 +9,7 @@ import Auction from "../components/auction/Auction.tsx";
 import "./index.css";
 import ContactUs from '../components/ContactUs';
 import Home from "../components/Home";
-import Profile from '../components/Profile'
+import Profile from './pages/Profile'
 import BottomNav from '../components/BottomNav';
 import Bid from "../components/auction/bid.tsx";
 
