@@ -39,7 +39,7 @@ const Card: React.FC<AuctionCardProps> = ({ auction, searchLocation }) => {
     <div
       className="max-w-sm border border-gray-300 rounded-lg overflow-hidden shadow-md transition-transform transform hover:scale-105 cursor-pointer"
       onClick={() =>
-        navigate("/bidder", {
+        navigate("/bid", {
           state: { auction },
         })
       }
