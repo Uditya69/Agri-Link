@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../src/configs/firebase";
-import Card from "./Card"; // Assuming you have a Card component
+import Card from "./Card"; // Import your existing Card component
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import '../../src/css/auction.css';
 
 interface Auction {
   id: string;
@@ -17,13 +21,12 @@ interface Auction {
   sellerName: string | null;
   unit: string;
   auctionId: string;
-
 }
-   
 
 const AuctionPage: React.FC = () => {
   const [auctions, setAuctions] = useState<Auction[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchLocation, setSearchLocation] = useState(""); // State for search input
   const navigate = useNavigate();
 
   // Fetch auction data from Firestore
@@ -55,28 +58,60 @@ const AuctionPage: React.FC = () => {
     fetchAuctions();
   }, []);
 
+  // Filter auctions based on the search input
+  const filteredAuctions = auctions.filter((auction) =>
+    auction.location.toLowerCase().includes(searchLocation.toLowerCase())
+  );
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-      {auctions.length > 0 ? (
-        auctions.map((auction) => (
-          <div
-            key={auction.id}
-            onClick={() =>
-              navigate("/bidder", {
-                state: { auction }, // Passing auction data to the bidder page
-              })
-            }
+    <div>
+      <Link to="/home" className="back-link">
+        <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+        <span>Auction Page</span>
+      </Link>
+      {/* Search Box */}
+      <div className="relative my-14">
+        <input
+          type="text"
+          placeholder="Search by location"
+          value={searchLocation}
+          onChange={(e) => setSearchLocation(e.target.value)}
+          className="p-3 pl-10 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-green-500 focus:outline-none"
+        />
+        {/* Search Icon (SVG) */}
+        <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+          <svg
+            className="w-5 h-5 text-gray-500"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <Card auction={auction} />
-          </div>
-        ))
-      ) : (
-        <div>No active auctions available.</div>
-      )}
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M21 21l-4.35-4.35M11 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        {filteredAuctions.length > 0 ? (
+          filteredAuctions.map((auction) => (
+            <div key={auction.id}>
+              <Card auction={auction} searchLocation={""} />
+            </div>
+          ))
+        ) : (
+          <div>No active auctions available for this location.</div>
+        )}
+      </div>
     </div>
   );
 };

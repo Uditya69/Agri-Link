@@ -7,9 +7,9 @@ import Auction from "../components/auction/Auction";
 import "./index.css";
 import ContactUs from '../components/ContactUs';
 import Home from "../components/Home";
-import Mandi from '../components/Mandi'
 import Profile from '../components/Profile'
 import BottomNav from '../components/BottomNav';
+import Weather from '../components/Weather';
 
 const App: React.FC = () => { 
   return (
@@ -17,13 +17,14 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/auth" element={<Auth />} />
         <Route
-          path="/"
+          path="/home"
           element={<ProtectedRoute><Home /></ProtectedRoute>}
         />
         <Route path="/add" element={<AddItem/>} />
         <Route path="/auctions"element={<Auction/>} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/home/weather" element={<Weather/>} />
       </Routes>
       <BottomNav/>
     </Router>

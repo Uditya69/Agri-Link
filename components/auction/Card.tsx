@@ -11,13 +11,29 @@ interface AuctionCardProps {
     imageUrl: string;
     auctionId: string;
     location: string;
-    unit: string
+    unit: string;
   };
+  searchLocation: string; // Pass the search term for optional highlight
 }
 
-
-const Card: React.FC<AuctionCardProps> = ({ auction }) => {
+const Card: React.FC<AuctionCardProps> = ({ auction, searchLocation }) => {
   const navigate = useNavigate();
+
+  // Function to highlight the searched location term
+  const highlightLocation = (location: string, searchTerm: string) => {
+    if (!searchTerm) return location;
+    const regex = new RegExp(`(${searchTerm})`, "gi");
+    const parts = location.split(regex);
+    return parts.map((part, index) =>
+      part.toLowerCase() === searchTerm.toLowerCase() ? (
+        <span key={index} className="bg-yellow-200">
+          {part}
+        </span>
+      ) : (
+        part
+      )
+    );
+  };
 
   return (
     <div
@@ -32,7 +48,7 @@ const Card: React.FC<AuctionCardProps> = ({ auction }) => {
       <div className="relative w-full h-48 bg-gray-200">
         <img
           src={auction.imageUrl}
-          alt={auction.itemName}
+          alt={`Image of ${auction.itemName}`}
           className="w-full h-full object-cover"
         />
       </div>
@@ -47,17 +63,15 @@ const Card: React.FC<AuctionCardProps> = ({ auction }) => {
         </div>
 
         <p className="text-gray-600 text-sm mb-2">
-          ₹{auction.pricePerUnit}/{auction.unit?auction.unit: "QT"}
+          ₹{auction.pricePerUnit}/{auction.unit ? auction.unit : "QT"}
         </p>
 
-        <p className="text-gray-600 text-sm mb-2">
-          Quantity: {auction.quantity}
-        </p>
+        <p className="text-gray-600 text-sm mb-2">Quantity: {auction.quantity}</p>
 
         <div className="flex justify-between items-center text-sm text-gray-500">
           <div className="flex items-center gap-1">
-            <img src={locationimg} alt="location" className="w-4 h-4" />
-            <span>{auction.location}</span>
+            <img src={locationimg} alt="Location icon" className="w-4 h-4" />
+            <span>{highlightLocation(auction.location, searchLocation)}</span>
           </div>
           <p>Ends: {new Date(auction.auctionEndDate).toLocaleDateString()}</p>
         </div>

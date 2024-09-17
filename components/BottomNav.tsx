@@ -5,7 +5,7 @@ import '../src/css/bottomNav.css';
 const BottomNav: React.FC = () => {
   return (
     <nav className="bottom-nav">
-      <Link to="/" className="nav-item">
+      <Link to="/home" className="nav-item">
         <span className="nav-icon"><i className="fa-solid fa-house"></i></span>
         <span className="nav-text font-mono">Home</span>
       </Link>
