@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
+import { Carousel } from 'tailwind-carousel';
 const Home: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [clickedItem, setClickedItem] = useState<string | null>(null);
@@ -13,6 +14,7 @@ const Home: React.FC = () => {
   };
 
   return (
+    <>
     <div className="relative inline-block text-left">
       <button
         onClick={toggleDropdown}
@@ -66,23 +68,18 @@ const Home: React.FC = () => {
                   <span className="badge badge-sm badge-outline badge-pill badge-primary">New</span>
                 </span>
               </a>
-            </div>
-            <div className="menu-item">
-              <a
-                className={`menu-link flex items-center p-4 hover:bg-green-100 hover:text-green-600 ${clickedItem === 'item4' ? 'text-green-500' : ''}`}
-                href="#"
-                onClick={() => handleItemClick('item4')}
-              >
-                <span className="menu-icon mr-2">
-                  <i className="ki-outline ki-message-programming" />
-                </span>
-                <span className="menu-title">Menu item 4</span>
-              </a>
-            </div>
+            </div> 
           </div>
         </div>
       )}
     </div>
+    <Carousel>
+      <img src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp" alt="Image 1" />
+      <img src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp" alt="Image 2" />
+      <img src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp" alt="Image 1" />
+      {/* Add more items as needed */}
+    </Carousel>
+    </>
   );
 };
 
