@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../src/css/home.css';
+import {Link} from 'react-router-dom';
 const Home: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [clickedItem, setClickedItem] = useState<string | null>(null);
@@ -22,25 +22,27 @@ const Home: React.FC = () => {
       </button>
       {isOpen && (
         <div
-          className="dropdown-content w-300 py-4 absolute mt-2 bg-white shadow-lg rounded-lg animate-fadeIn"
-          style={{ transition: 'all 0.3s ease' }}
+          className="dropdown-content w-full py-4 absolute mt-2 bg-white shadow-lg rounded-lg animate-fadeIn"
+          style={{ transition: 'all 0.3s ease', width: '400px' }}
         >
-          <div className="menu menu-default flex flex-col w-full">
+          <div className="menu menu-default flex flex-col w-full">  
             <div className="menu-item">
               <a
-                className={`menu-link flex items-center p-4 hover:bg-gray-100 ${clickedItem === 'item1' ? 'text-green-500' : ''}`}
+                className={`menu-link flex items-center p-4 hover:bg-green-100 hover:text-green-600 ${clickedItem === 'item1' ? 'text-green-500' : ''}`}
                 href="#"
                 onClick={() => handleItemClick('item1')}
               >
                 <span className="menu-icon mr-2">
                   <i className="ki-outline ki-badge" />
                 </span>
+                <Link to='/home/weather'>
                 <span className="menu-title">Live Weather Update</span>
+                </Link>
               </a>
             </div>
             <div className="menu-item">
               <a
-                className={`menu-link flex items-center p-4 hover:bg-gray-100 ${clickedItem === 'item2' ? 'text-green-500' : ''}`}
+                className={`menu-link flex items-center p-4 hover:bg-green-100 hover:text-green-600 ${clickedItem === 'item2' ? 'text-green-500' : ''}`}
                 href="#"
                 onClick={() => handleItemClick('item2')}
               >
@@ -50,8 +52,33 @@ const Home: React.FC = () => {
                 <span className="menu-title">Government Schemes</span>
               </a>
             </div>
-            
-
+            <div className="menu-item">
+              <a
+                className={`menu-link flex items-center p-4 hover:bg-green-100 hover:text-green-600 ${clickedItem === 'item3' ? 'text-green-500' : ''}`}
+                href="#"
+                onClick={() => handleItemClick('item3')}
+              >
+                <span className="menu-icon mr-2">
+                  <i className="ki-outline ki-setting-2" />
+                </span>
+                <span className="menu-title">Menu item 3</span>
+                <span className="menu-badge ml-2">
+                  <span className="badge badge-sm badge-outline badge-pill badge-primary">New</span>
+                </span>
+              </a>
+            </div>
+            <div className="menu-item">
+              <a
+                className={`menu-link flex items-center p-4 hover:bg-green-100 hover:text-green-600 ${clickedItem === 'item4' ? 'text-green-500' : ''}`}
+                href="#"
+                onClick={() => handleItemClick('item4')}
+              >
+                <span className="menu-icon mr-2">
+                  <i className="ki-outline ki-message-programming" />
+                </span>
+                <span className="menu-title">Menu item 4</span>
+              </a>
+            </div>
           </div>
         </div>
       )}

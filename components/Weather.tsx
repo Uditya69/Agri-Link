@@ -71,11 +71,11 @@ const Weather: React.FC = () => {
 
   return (
     <div className="p-4 max-w-md mx-auto bg-white border border-gray-200 rounded-lg shadow-md">
-      <Link to="/" className="flex items-center text-blue-500 hover:underline mb-4">
+      <Link to="/home" className="flex items-center text-blue-500 hover:underline mb-4">
         <FontAwesomeIcon icon={faArrowLeft} size="lg" />
-        <span className="ml-2">Live Weather</span>
+        <span className="ml-2 text-green-600">Live Weather</span>
       </Link>
-      <h1 className="text-2xl font-bold mb-4">Live Weather</h1>
+      <h1 className="text-2xl font-bold mb-4 text-green-700">Live Weather</h1>
       <div className="mb-4">
         <input
           type="text"
