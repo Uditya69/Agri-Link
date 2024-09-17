@@ -189,7 +189,7 @@ const Signup: React.FC = () => {
   return (
     <div>
       {loading ? (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center h-screen p-4">
           <div>
             <div>
               <Loader />
@@ -198,178 +198,188 @@ const Signup: React.FC = () => {
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSignup} className="space-y-4">
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">Name:</label>
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-          </div>
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">Email:</label>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-          </div>
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">Password:</label>
-            <div className="relative">
-              <input
-                type={type}
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 outline-none rounded-lg"
-              />
-              <button
-                type="button"
-                onClick={toggleVisibility}
-                className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-500"
-              >
-                <img src={visible ? visibleicon : hiddenicon} alt="" />
-              </button>
-            </div>
-          </div>
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">Phone:</label>
-            <input
-              type="text"
-              placeholder="Phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-          </div>
+<form onSubmit={handleSignup} className="w-full max-w-sm space-y-4">
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">Name:</label>
+    <input
+      type="text"
+      placeholder="Name"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      className="shadow appearance-none border ml-{10rem} rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
 
-          {/* Location fields */}
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">PIN:</label>
-            <input
-              type="text"
-              placeholder="PIN"
-              value={pin}
-              onChange={(e) => setPin(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-          </div>
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">City:</label>
-            <input
-              type="text"
-              placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-          </div>
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">State:</label>
-            <input
-              type="text"
-              placeholder="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-          </div>
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700"> Block Address:</label>
-            <input
-              type="text"
-              placeholder="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-          </div>
-          <div className="flex flex-row items-center">
-          <div className="flex flex-row items-center">
-  <label className="block text-gray-700">Gender:</label>
-  <select
-    value={gender}
-    onChange={(e) => setGender(e.target.value)}
-    className="w-full p-3 outline-none rounded-lg"
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">Email:</label>
+    <input
+      type="email"
+      placeholder="Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  <div className="mb-4 flex flex-row items-center flex-grow">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">Password:</label>
+    <div className="relative">
+      <input
+        type={type}
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+      <button
+        type="button"
+        onClick={toggleVisibility}
+        className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+      >
+        <img src={visible ? visibleicon : hiddenicon} alt="Toggle Password Visibility" />
+      </button>
+    </div>
+  </div>
+
+  <div className="mb-4 flex flex-row items-center mt-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">Phone:</label>
+    <input
+      type="text"
+      placeholder="Phone"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">PIN:</label>
+    <input
+      type="text"
+      placeholder="PIN"
+      value={pin}
+      onChange={(e) => setPin(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">City:</label>
+    <input
+      type="text"
+      placeholder="City"
+      value={city}
+      onChange={(e) => setCity(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">State:</label>
+    <input
+      type="text"
+      placeholder="State"
+      value={state}
+      onChange={(e) => setState(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-1">Block Address:</label>
+    <input
+      type="text"
+      placeholder="Address"
+      value={address}
+      onChange={(e) => setAddress(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">Gender:</label>
+    <select
+      value={gender}
+      onChange={(e) => setGender(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    >
+      <option value="">Select Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="non-binary">Non-binary</option>
+      <option value="prefer-not-to-say">Prefer not to say</option>
+    </select>
+  </div>
+
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">Date of Birth:</label>
+    <input
+      type="date"
+      value={dob}
+      onChange={(e) => setDob(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  </div>
+
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">Role:</label>
+    <select
+      value={role}
+      onChange={(e) => setRole(e.target.value)}
+      className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    >
+      <option value="buyer">Buyer</option>
+      <option value="seller">Seller</option>
+    </select>
+  </div>
+
+  {role === "buyer" && (
+    <div className="mb-4 flex flex-row items-center">
+      <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">GST Number:</label>
+      <input
+        type="text"
+        placeholder="GST Number"
+        value={gstNumber}
+        onChange={(e) => setGstNumber(e.target.value)}
+        className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+  )}
+
+  {role === "seller" && (
+    <div className="mb-4 flex flex-row items-center">
+      <label className="block text-gray-700 text-sm font-bold mb-2 mr-4">Farmer Card Number:</label>
+      <input
+        type="text"
+        placeholder="Farmer Card Number"
+        value={farmerCardNumber}
+        onChange={(e) => setFarmerCardNumber(e.target.value)}
+        className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
+    </div>
+  )}
+
+  <div className="mb-4 flex flex-row items-center">
+    <label className="block text-gray-700 text-sm font-bold mb-2 mr-4" >Profile Picture:</label>
+    <input
+      type="file"
+      accept="image/*"
+      onChange={handleProfilePicChange}
+      className="w-full p-3 outline-none rounded-lg"
+    />
+    {profilePicPreview && (
+      <img src={profilePicPreview} alt="Profile Preview" className="w-20 h-20 mt-2" />
+    )}
+  </div>
+
+  <button
+    type="submit"
+    className="w-full py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600"
   >
-    <option value="">Select Gender</option>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-    <option value="non-binary">Non-binary</option>
-    <option value="prefer-not-to-say">Prefer not to say</option>
-  </select>
-</div>
+    Sign Up
+  </button>
+</form>
 
-          </div>
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">Date of Birth:</label>
-            <input
-              type="date"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-          </div>
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">Role:</label>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full p-3 outline-none rounded-lg"
-            >
-              <option value="buyer">Buyer</option>
-              <option value="seller">Seller</option>
-            </select>
-          </div>
-          {role === "buyer" && (
-            <div className="flex flex-row items-center">
-              <label className="block text-gray-700">GST Number:</label>
-              <input
-                type="text"
-                placeholder="GST Number"
-                value={gstNumber}
-                onChange={(e) => setGstNumber(e.target.value)}
-                className="w-full p-3 outline-none rounded-lg"
-              />
-            </div>
-          )}
-          {role === "seller" && (
-            <div className="flex flex-row items-center">
-              <label className="block text-gray-700">Farmer Card Number:</label>
-              <input
-                type="text"
-                placeholder="Farmer Card Number"
-                value={farmerCardNumber}
-                onChange={(e) => setFarmerCardNumber(e.target.value)}
-                className="w-full p-3 outline-none rounded-lg"
-              />
-            </div>
-          )}
-          <div className="flex flex-row items-center">
-            <label className="block text-gray-700">Profile Picture:</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleProfilePicChange}
-              className="w-full p-3 outline-none rounded-lg"
-            />
-            {profilePicPreview && (
-              <img src={profilePicPreview} alt="Profile Preview" className="w-20 h-20 mt-2" />
-            )}
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white w-full p-3 rounded-lg"
-          >
-            Sign Up
-          </button>
-        </form>
       )}
     </div>
   );

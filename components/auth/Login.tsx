@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../src/configs/firebase";
-import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import usePasswordToggle from "../../src/hooks/usePasswordToggle";
 import visibleicon from "../../src/assets/auth/visible.svg";
 import hiddenicon from "../../src/assets/auth/hidden.svg";
@@ -52,56 +49,73 @@ const Login: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleLogin} className="space-y-4 ">
-      <div className="flex flex-row items-center">
-        <label className="block text-gray-700">Email:</label>
-        <input
-          type="email"
-          placeholder="hi@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-3 outline-none rounded-lg"
-        />
-      </div>
-      <div className="flex flex-row items-center">
-        <label className="block text-gray-700">Password:</label>
-        <div className="relative">
-          <input
-            type={type}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 outline-none rounded-lg"
-          />
+    <div >
+    {/* Centered Logo Section */}
+    <div className="flex flex-col items-center justify-center mb-8">
+      <img
+        src="../../assets/Logo/logo.svg"
+        alt="Logo"
+        className="w-32"
+      />
+    </div>
+      {/* Login Form */}
+      <div className="w-full max-w-sm">
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+              Your email address
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="hi@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+              Choose a password
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                type={type}
+                placeholder="min. 8 characters"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="shadow appearance-none border rounded-full w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              <button
+                type="button"
+                onClick={toggleVisibility}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5 cursor-pointer"
+              >
+                <img src={visible ? visibleicon : hiddenicon} alt="Toggle Password Visibility" />
+              </button>
+            </div>
+          </div>
           <button
-            type="button"
-            onClick={toggleVisibility}
-            className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-500"
+            type="submit"
+            className="w-full py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600"
           >
-            <img src={visible ? visibleicon : hiddenicon} alt="" />
+            Log In
           </button>
+          <div className="text-sm text-center mt-4">
+            <button
+              type="button"
+              onClick={handlePasswordReset}
+              className="text-red-500 hover:underline"
+            >
+              Forgot Password?
+            </button>
+          </div>
+        </form>
+
+       
         </div>
       </div>
-
-      <div className="flex justify-between items-center">
-        <button
-          type="submit"
-          className="w-full py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600"
-        >
-          Log In
-        </button>
-      </div>
-
-      <div className="text-sm text-center">
-        <button
-          type="button"
-          onClick={handlePasswordReset}
-          className="text-red-500 hover:underline"
-        >
-          Forgot Password?
-        </button>
-      </div>
-    </form>
   );
 };
 
