@@ -1,63 +1,16 @@
-.loader {
-    --path: #2F3545;
-    --dot: #5928ee;
-    --duration: 3s;
-    width: 44px;
-    height: 44px;
-    position: relative;
-  }
-  .loader:before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    position: absolute;
-    z-index: 50;
-    display: block;
-    background: var(--dot);
-    top: 37px;
-    left: 19px;
-    transform: translate(-18px, -18px);
-    animation: dotCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
-  }
-  .loader svg circle {
-    fill: none;
-    stroke: var(--path);
-    stroke-width: 10px;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    stroke-dasharray: 150 50 150 50;
-    stroke-dashoffset: 75;
-    animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+.spinner-circle {
+    border-width: 4px;
+    border-style: solid;
+    border-color: transparent;
+    animation: spin 1.5s linear infinite;
   }
   
-  @keyframes pathCircle {
-    25% {
-      stroke-dashoffset: 125;
-    }
-    50% {
-      stroke-dashoffset: 175;
-    }
-    75% {
-      stroke-dashoffset: 225;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
     }
     100% {
-      stroke-dashoffset: 275;
-    }
-  }
-  
-  @keyframes dotCircle {
-    25% {
-      transform: translate(0, 0);
-    }
-    50% {
-      transform: translate(10px, -10px);
-    }
-    75% {
-      transform: translate(0, -20px);
-    }
-    100% {
-      transform: translate(-10px, -10px);
+      transform: rotate(360deg);
     }
   }
   
