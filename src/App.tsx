@@ -5,6 +5,7 @@ import ProtectedRoute from "../components/auth/ProtectedRoute.tsx";
 import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction.tsx";
 import Header from '../components/Header';
+import Weather from '../components/Weather';
 // import Auction from "./pages/AuctionScreen";
 
 import "./index.css";
@@ -24,7 +25,7 @@ const App: React.FC = () => {
           path="/"
           element={<ProtectedRoute><Home /></ProtectedRoute>}
         />
-        
+        <Route path="/weather" element={<Weather/>} />
         <Route path="/add" element={<AddItem/>} />
         <Route path="/bid" element={<Bid/>} />
         <Route path="/auctions"element={<Auction/>} />

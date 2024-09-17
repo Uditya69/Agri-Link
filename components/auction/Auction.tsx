@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../src/configs/firebase";
 import Card from "./Card"; // Import your existing Card component
@@ -23,7 +22,6 @@ const AuctionPage: React.FC = () => {
   const [auctions, setAuctions] = useState<Auction[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchLocation, setSearchLocation] = useState(""); // State for search input
-  const navigate = useNavigate();
 
   // Fetch auction data from Firestore
   useEffect(() => {
