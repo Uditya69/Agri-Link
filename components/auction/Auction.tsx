@@ -66,7 +66,7 @@ const AuctionPage: React.FC = () => {
           <div
             key={auction.id}
             onClick={() =>
-              navigate("/bidder", {
+              navigate("/bid", {
                 state: { auction }, // Passing auction data to the bidder page
               })
             }
