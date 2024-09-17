@@ -13,7 +13,7 @@ interface AuctionCardProps {
     location: string;
     unit: string;
   };
-  searchLocation: string; // Pass the search term for optional highlight
+  searchLocation: string; 
 }
 
 const Card: React.FC<AuctionCardProps> = ({ auction, searchLocation }) => {

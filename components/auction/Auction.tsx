@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../src/configs/firebase";
-import Card from "./Card"; 
+import Card from "./Card";
 
 interface Auction {
   id: string;
@@ -21,17 +21,22 @@ interface Auction {
 const AuctionPage: React.FC = () => {
   const [auctions, setAuctions] = useState<Auction[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchLocation, setSearchLocation] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   useEffect(() => {
     const fetchAuctions = async () => {
       try {
         const auctionRef = collection(db, "auctions");
         const auctionSnapshot = await getDocs(auctionRef);
-        const auctionList = auctionSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Auction[];
+        const auctionList = auctionSnapshot.docs.map((doc) => {
+          const data = doc.data();
+          // Ensure location is a string
+          return {
+            id: doc.id,
+            ...data,
+            location: typeof data.location === 'string' ? data.location : '',
+          };
+        }) as Auction[];
 
         // Filter auctions where auctionEndDate is not past
         const now = new Date();
@@ -51,9 +56,13 @@ const AuctionPage: React.FC = () => {
     fetchAuctions();
   }, []);
 
-  const filteredAuctions = auctions.filter((auction) =>
-    auction.location.toLowerCase().includes(searchLocation.toLowerCase())
-  );
+  const filteredAuctions = auctions.filter((auction) => {
+    const searchLower = searchTerm.toLowerCase();
+    const locationLower = auction.location.toLowerCase();
+    const itemNameLower = auction.itemName.toLowerCase();
+
+    return locationLower.includes(searchLower) || itemNameLower.includes(searchLower);
+  });
 
   if (loading) {
     return <div>Loading...</div>;
@@ -64,9 +73,9 @@ const AuctionPage: React.FC = () => {
       <div className="relative m-6">
         <input
           type="text"
-          placeholder="Search by location"
-          value={searchLocation}
-          onChange={(e) => setSearchLocation(e.target.value)}
+          placeholder="Search by location or item name"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="p-3 pl-10 border border-gray-300 rounded-lg w-full focus:ring-2 focus:ring-green-500 focus:outline-none"
         />
         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -87,15 +96,15 @@ const AuctionPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mb-[10%]">
         {filteredAuctions.length > 0 ? (
           filteredAuctions.map((auction) => (
             <div key={auction.id}>
-              <Card auction={auction} searchLocation={""} />
+              <Card auction={auction} searchLocation={searchTerm} />
             </div>
           ))
         ) : (
-          <div>No active auctions available for this location.</div>
+          <div>No active auctions available for this search term.</div>
         )}
       </div>
     </div>
