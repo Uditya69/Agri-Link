@@ -7,7 +7,7 @@ const Auth: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full m-auto  h-screen bg-gray-200 p-4">
-      <div className="flex flex-col  min-h-[55%] min-w-[40%]  items-center justify-between m-auto p-4 bg-white rounded-lg shadow-md">
+      <div className="flex flex-col overflow-scroll  min-h-[55%] min-w-[40%]  items-center justify-between m-auto p-4 bg-white rounded-lg shadow-md">
         <div className="flex justify-between gap-5 mb-6 border-b border-gray-300">
           <button
             className={`pb-2 text-lg font-semibold ${
