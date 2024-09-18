@@ -104,21 +104,21 @@ function Profile() {
             <strong>Location:</strong> {userData.location.join(", ")}
           </p>
         </div>
-````
-        <div className="flex justify-center gap-3-">
-        <button
-            onClick={handleNav}
-            className="mt-6 p-3  bg-green-500 text-white rounded-lg hover:bg-green-600"
-          >
-            My Auctions
-          </button>
-          <button
-            onClick={handleLogout}
-            className="mt-6 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-          >
-            Logout
-          </button>
-        </div>
+<div className="flex justify-center items-center gap-6 ">
+  <button
+    onClick={handleNav}
+    className="p-3 bg-green-500 text-white rounded-lg hover:bg-green-600"
+  >
+    My Auctions
+  </button>
+  <button
+    onClick={handleLogout}
+    className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+  >
+    Logout
+  </button>
+</div>
+
       </div>
     </div>
   );
