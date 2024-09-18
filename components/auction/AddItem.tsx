@@ -50,6 +50,7 @@ const AuctionForm: React.FC = () => {
           if (userDoc.exists()) {
             const userData = userDoc.data();
             setUserData({
+              uid: user.uid,
               displayName: userData?.name || "Default Name",
               email: user.email || "Default Email",
               location: userData?.location[3] || "Default location",
@@ -120,7 +121,7 @@ const AuctionForm: React.FC = () => {
         await uploadBytes(imageRef, image);
         imageUrl = await getDownloadURL(imageRef);
       }
-
+      console.log("user data:",userData)
       await setDoc(doc(db, "auctions", auctionId), {
         auctionId,
         itemName,
@@ -131,6 +132,7 @@ const AuctionForm: React.FC = () => {
         auctionEndDate,
         sellerName: userData.displayName,
         sellerEmail: userData.email,
+        sellerId: userData.uid,
         location: userData.location,
         imageUrl,
       });

@@ -6,7 +6,6 @@ import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction.tsx";
 import Header from '../components/Header';
 import Weather from '../components/Weather';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import "./index.css";
 import ContactUs from "../components/ContactUs";
@@ -14,6 +13,7 @@ import Home from "../components/Home";
 import Profile from "./pages/Profile";
 import BottomNav from "../components/BottomNav";
 import Bid from "../components/auction/bid.tsx";
+import ChatScreen from "./pages/chat/index.tsx";
 
 const App: React.FC = () => {
   return (
@@ -32,7 +32,7 @@ const App: React.FC = () => {
         <Route path="/weather" element={<Weather/>} />
         <Route path="/bid" element={<Bid/>} />
         <Route path="/auctions"element={<Auction/>} />
-
+        <Route path="/chat/" element={<ChatScreen />} />
         <Route
           path="/additems"
           element={
