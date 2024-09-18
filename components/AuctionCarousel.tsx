@@ -22,6 +22,7 @@ interface Auction {
 const AuctionCarousel = () => {
   const [auctions, setAuctions] = useState<Auction[]>([]);
   const [loading, setLoading] = useState(true);
+  //@ts-ignore
   const [searchTerm, setSearchTerm] = useState(""); 
   useEffect(() => {
     const fetchAuctions = async () => {

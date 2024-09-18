@@ -6,14 +6,13 @@ import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction.tsx";
 import Header from '../components/Header';
 import Weather from '../components/Weather';
-
+import MyAuctions from '../components/auction/MyAuctions';
 import "./index.css";
 import ContactUs from "../components/ContactUs";
 import Home from "../components/Home";
 import Profile from "./pages/Profile";
 import BottomNav from "../components/BottomNav";
 import Bid from "../components/auction/bid.tsx";
-import ChatScreen from "./pages/chat/index.tsx";
 
 const App: React.FC = () => {
   return (
@@ -29,10 +28,18 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/weather" element={<Weather/>} />
         <Route path="/bid" element={<Bid/>} />
+        <Route path="/myauctions" element={<MyAuctions/>} />
         <Route path="/auctions"element={<Auction/>} />
-        <Route path="/chat/" element={<ChatScreen />} />
         <Route
           path="/additems"
           element={
