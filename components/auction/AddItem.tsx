@@ -191,7 +191,7 @@ const AuctionForm: React.FC = () => {
           <select
             value={unit}
             onChange={(e) => setUnit(e.target.value)}
-            className="w-full p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+            className="w-[80%] p-3 outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
           >
             <option value="kg">Kilogram (kg)</option>
             <option value="ton">Ton</option>

@@ -53,6 +53,9 @@ function Profile() {
     toast.success("You have logged out!");
   };
 
+  const handleAdd = () => {
+    navigate('/profile/MyAuctions');
+  };
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
       <div className="w-full max-w-2xl bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
@@ -122,7 +125,14 @@ function Profile() {
             <strong>Location:</strong> {userData.location.join(", ")}
           </p>
         </div>
-
+        <div className="relative">
+  <button
+    onClick={handleAdd}
+    className="w-fit flex flex-row items-center gap-2 p-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 z-50"
+  >
+    <p>My Auctions</p>
+  </button>
+</div>
         <div className="flex justify-center">
           <button
             onClick={handleLogout}

@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 const firebaseConfig = {
-  apiKey: "AIzaSyCj5Hf5H2u2THQT76fxjIJiVdyyhUTLifs",
-  authDomain: "agrilink-e7d8e.firebaseapp.com",
-  projectId: "agrilink-e7d8e",
-  storageBucket: "agrilink-e7d8e.appspot.com",
-  messagingSenderId: "417700350733",
-  appId: "1:417700350733:web:06eedc5867e75d0c4e7e44",
+  apiKey: "AIzaSyD9lzvoLhtw4XAlazTcc1cJdAieL03pSqQ",
+  authDomain: "farmx-1381c.firebaseapp.com",
+  projectId: "farmx-1381c",
+  storageBucket: "farmx-1381c.appspot.com",
+  messagingSenderId: "891902881500",
+  appId: "1:891902881500:web:8baf9932065f2632fd0e19",
 };
 const app = initializeApp(firebaseConfig);
 export const db=getFirestore(app);

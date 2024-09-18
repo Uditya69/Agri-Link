@@ -6,17 +6,13 @@ import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction.tsx";
 import Header from '../components/Header';
 import Weather from '../components/Weather';
-<<<<<<< HEAD
-=======
-import Header from "../components/Header";
-
->>>>>>> b4fc44252b9901d3f325c64dce5ce42d2ef9a3f5
 import "./index.css";
 import ContactUs from "../components/ContactUs";
 import Home from "../components/Home";
 import Profile from "./pages/Profile";
 import BottomNav from "../components/BottomNav";
 import Bid from "../components/auction/bid.tsx";
+import MyAuctions from "./pages/Profile/MyAuctions.tsx";
 
 const App: React.FC = () => {
   return (
@@ -35,7 +31,7 @@ const App: React.FC = () => {
         <Route path="/weather" element={<Weather/>} />
         <Route path="/bid" element={<Bid/>} />
         <Route path="/auctions"element={<Auction/>} />
-
+        <Route path="/profile/MyAuctions"element={<MyAuctions/>} />
         <Route
           path="/additems"
           element={
