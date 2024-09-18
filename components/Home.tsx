@@ -8,7 +8,7 @@ const Home: React.FC = () => {
     <div className='carousel'>
       <>
       <Carousel/>
-      <h2 className='heading'>Live Auctions</h2>
+      <h2 className="font-bold text-2xl text-center mt-5">Live Auctions</h2>
       <AuctionCarousel />
       </>
     </div>

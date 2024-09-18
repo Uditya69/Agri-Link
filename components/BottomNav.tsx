@@ -15,21 +15,20 @@ const BottomNav: React.FC = () => {
     return null; // Do not render BottomNav
   }
 
+
   return (
-    <div className="bottom-nav">
-      <Link to="/home" className="nav-item">
-        <span className="nav-icon"><i className="fa-solid fa-house"></i></span>
-        <span className="nav-text font-mono">Home</span>
+    <div className="fixed bottom-0 w-full bg-white h-16 flex justify-around items-center rounded-t-lg shadow-lg">
+      <Link to="/home" className="flex flex-col items-center text-black hover:text-green-400">
+        <i className="fa-solid fa-house text-2xl"></i>
       </Link>
-      
-      <Link to="/auctions" className="nav-item">
-        <span className="nav-icon"><i className="fa-solid fa-info"></i></span>
-        <span className="nav-text font-mono">Auction</span>
-      </Link>
-      
-      <Link to="/profile" className="nav-item">
-        <span className="nav-icon"><i className="fa-solid fa-user"></i></span>
-        <span className="nav-text font-mono">Profile</span>
+
+      <Link to="/auctions" className="flex flex-col items-center text-black hover:text-green-400">
+  <img src="../../src/assets/auction.png" alt="Auction" className="w-8 h-8" />
+</Link>
+
+
+      <Link to="/profile" className="flex flex-col items-center text-black hover:text-green-400">
+        <i className="fa-solid fa-user text-2xl"></i>
       </Link>
     </div>
   );
