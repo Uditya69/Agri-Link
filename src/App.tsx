@@ -6,6 +6,7 @@ import AddItem from "../components/auction/AddItem";
 import Auction from "../components/auction/Auction.tsx";
 import Header from '../components/Header';
 import Weather from '../components/Weather';
+
 import "./index.css";
 import ContactUs from "../components/ContactUs";
 import Home from "../components/Home";

@@ -45,13 +45,15 @@ const Card: React.FC<AuctionCardProps> = ({ auction, searchLocation }) => {
       }
     >
       {/* Image Section */}
-      <div className="relative w-full h-48 bg-gray-200">
-        <img
-          src={auction.imageUrl}
-          alt={`Image of ${auction.itemName}`}
-          className="w-full h-full object-cover"
-        />
-      </div>
+      <div className="relative w-full h-48 bg-white pt-2 pr-2 pl-2 rounded-lg overflow-hidden">
+  <img
+    src={auction.imageUrl}
+    alt={`Image of ${auction.itemName}`}
+    className="w-full h-full object-cover rounded-lg"
+  />
+  <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent"></div>
+</div>
+
 
       {/* Auction Info */}
       <div className="p-4">
